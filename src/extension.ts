@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
         const testFile = match.testFile;
         const testName = match.testName;
         terminal.sendText(`cd "${workspace.rootPath}"`);
-        terminal.sendText(`protractor ${protactorConfigPath} --specs='${testFile}' --grep="${testName}"`);  
+		terminal.sendText(`node.exe --inspect-brk node_modules/protractor/bin/protractor '${protactorConfigPath}' --specs='${testFile}' --grep="${testName}"`);
     });
 
     languages.forEach(language => {
@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         return matches.map(match => new vscode.CodeLens(match.range, {
-            title: match.isTestSet ? 'Run tests' : 'Run test',
+            title: match.isTestSet ? 'Debug tests' : 'Debug test',
             command: 'extension.executeProtractorTest',
             arguments: [ match ]
         }));
