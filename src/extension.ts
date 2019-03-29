@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
         const testFile = match.testFile;
         const testName = match.testName;
         terminal.sendText(`cd "${workspace.rootPath}"`);
-		terminal.sendText(`node.exe --inspect-brk node_modules/protractor/bin/protractor '${protactorConfigPath}' --specs='${testFile}' --grep="${testName}"`);
+	terminal.sendText(`node --inspect-brk node_modules/protractor/bin/protractor '${protactorConfigPath}' --specs='${testFile}' --grep="${testName}"`);
     });
 
     languages.forEach(language => {
