@@ -6,7 +6,7 @@ import * as path from 'path';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    const languages = ['typescript', 'javascript'];
+    const languages = ['typescript'];
     const window = vscode.window;
     const workspace = vscode.workspace;
     const isTestRegex = /^((\s*)(it|describe)(\s*)\((\s*)('|"))/g;
@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
         const testFile = match.testFile;
         const testName = match.testName;
         terminal.sendText(`cd "${workspace.rootPath}"`);
-        terminal.sendText(`protractor ${protactorConfigPath} --specs='${testFile}' --grep="${testName}"`);  
+        terminal.sendText(`node node_modules/protractor/bin/protractor '${protactorConfigPath}' --specs='${testFile}' --grep="${testName}"`);  
     });
 	
     let disposable2 = vscode.commands.registerCommand('extension.debugProtractorTest', (match) => {
@@ -70,15 +70,15 @@ export function activate(context: vscode.ExtensionContext) {
             }           
         }
 
-        return Array.concat(matches.map(match => new vscode.CodeLens(match.range, {
+        return matches.map(match => new vscode.CodeLens(match.range, {
             title: match.isTestSet ? 'Run tests' : 'Run test',
             command: 'extension.executeProtractorTest',
             arguments: [ match ]
-        }), matches.map(match => new vscode.CodeLens(match.range, {
+        })).concat(matches.map(match => new vscode.CodeLens(match.range, {
             title: match.isTestSet ? 'Debug tests' : 'Debug test',
             command: 'extension.debugProtractorTest',
             arguments: [ match ]
-        }));
+        })));
     }
 
     context.subscriptions.push(disposable1);
