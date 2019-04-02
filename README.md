@@ -1,8 +1,6 @@
-# Protractor test runner
+Branch from gabduss:runProtractorVsCodeExtension(https://github.com/gabduss/runProtractorVsCodeExtension)
 
-Run a single protractor test (it) or a set of tests (describe).
-
-![Run test](images/runTest.PNG)
+Run/Debug a single protractor test (it) or a set of tests (describe).
 
 ## Extension Settings
 
