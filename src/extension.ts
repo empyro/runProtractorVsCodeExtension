@@ -13,7 +13,17 @@ export function activate(context: vscode.ExtensionContext) {
     const isTestSetRegex = /^((\s*)(describe)(\s*)\((\s*)('|"))/g;
     const testNameRegex = /(("|')(.*?)("|'))/;
 
-    let disposable = vscode.commands.registerCommand('extension.executeProtractorTest', (match) => {
+    let disposable1 = vscode.commands.registerCommand('extension.executeProtractorTest', (match) => {
+        let terminal: vscode.Terminal = window.terminals.length > 0 ? window.terminals[0] : window.createTerminal();
+        terminal.show();
+        const protactorConfigPath = getProtractorConfig();
+        const testFile = match.testFile;
+        const testName = match.testName;
+        terminal.sendText(`cd "${workspace.rootPath}"`);
+        terminal.sendText(`protractor ${protactorConfigPath} --specs='${testFile}' --grep="${testName}"`);  
+    });
+	
+    let disposable2 = vscode.commands.registerCommand('extension.debugProtractorTest', (match) => {
         let terminal: vscode.Terminal = window.terminals.length > 0 ? window.terminals[0] : window.createTerminal();
         terminal.show();
         const protactorConfigPath = getProtractorConfig();
@@ -60,14 +70,19 @@ export function activate(context: vscode.ExtensionContext) {
             }           
         }
 
-        return matches.map(match => new vscode.CodeLens(match.range, {
-            title: match.isTestSet ? 'Debug tests' : 'Debug test',
+        return Array.concat(matches.map(match => new vscode.CodeLens(match.range, {
+            title: match.isTestSet ? 'Run tests' : 'Run test',
             command: 'extension.executeProtractorTest',
+            arguments: [ match ]
+        }), matches.map(match => new vscode.CodeLens(match.range, {
+            title: match.isTestSet ? 'Debug tests' : 'Debug test',
+            command: 'extension.debugProtractorTest',
             arguments: [ match ]
         }));
     }
 
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable1);
+    context.subscriptions.push(disposable2);
 }
 
 export interface Match {
