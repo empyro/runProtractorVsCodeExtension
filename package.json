@@ -1,9 +1,9 @@
 {
-    "name": "run-protractor",
-    "displayName": "Run protractor",
-    "description": "Starts a single protractor test",
+    "name": "run-debug-protractor",
+    "displayName": "Run/Debug protractor",
+    "description": "Starts/Debugs a single protractor test",
     "version": "1.0.0",
-    "publisher": "gabduss",
+    "publisher": "empyro",
     "engines": {
         "vscode": "^1.28.0"
     },
@@ -11,15 +11,14 @@
         "Other"
     ],
     "activationEvents": [
-        "onLanguage:typescript",
-        "onLanguage:javascript"
+        "onLanguage:typescript"
     ],
     "contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "run-protractor",
+			"title": "run-debug-protractor",
 			"properties": {
-				"run-protractor.protractorConfiguration": {
+				"run-debug-protractor.protractorConfiguration": {
 					"type": "string",
 					"default": "",
 					"description": "Relative path to protractor configuration"
@@ -27,10 +26,10 @@
 			}
 		}
     },
-    "homepage": "https://github.com/gabduss/runProtractorVsCodeExtension",
+    "homepage": "https://github.com/empyro/runProtractorVsCodeExtension",
     "repository": {
 		"type": "git",
-		"url": "https://github.com/gabduss/runProtractorVsCodeExtension.git"
+		"url": "https://github.com/empyro/runProtractorVsCodeExtension.git"
     },
     "galleryBanner": {
         "color": "#E23137",
