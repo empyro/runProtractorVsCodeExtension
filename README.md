@@ -6,7 +6,7 @@ Run/Debug a single protractor test (it) or a set of tests (describe).
 
 This extension contributes the following settings:
 
-* `run-protractor.protractorConfiguration`: Relative path (from workspace) to protractor config e.g. e2e/protractor.js.
+* `run-debug-protractor.protractorConfiguration`: Relative path (from workspace) to protractor config e.g. e2e/protractor.js.
 
 ## History
 See changelog
